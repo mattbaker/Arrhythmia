@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Valid Rhythm</title>
+        <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+		<link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="/css/typography.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="/css/primer.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<script type="text/javascript" src="/src/jquery.1.4.2.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/src/primer.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/src/primer_style.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/src/arrhythmia.js" charset="utf-8"></script>
+		
+		<script type="text/javascript" charset="utf-8">
+			$(function() {
+				var valid = Arrhythmia("body").validateRhythm() === false;
+				if(window.opener) window.opener.test_callback(window, valid, "foo");
+			});
+		</script>
+</head>
+<body>
+	<h1 class="center">Lorem Ipsum</h1>
+	<article style="margin:0 auto;">
+		<section id="introduction">
+			<h2 class="center">Introduction</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+			<form autocomplete="off">
+				&ldquo;Lorem: <input id="name" size="10" style="border-bottom: 1px dashed black;" type="text">&rdquo;
+			</form>
+		</section>
+		<section>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			
+			
+			<p style="padding:3px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			
+			<form autocomplete="off">
+				<textarea class="code baseline"></textarea>
+			</form>
+			
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					
+		</section>
+	</article>
+	
+</body>
+</html>

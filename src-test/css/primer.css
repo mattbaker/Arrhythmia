@@ -1,0 +1,95 @@
+/* Additional reset
+-------------------------------------------------------------- */
+textarea, input, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+/* Base element styling
+-------------------------------------------------------------- */
+body		{ padding:3em;  }
+article		{ width: 40em;	}
+form    	{ line-height: 1.5em; margin: 0 0 1.5em; }
+textarea	{ display:block; line-height: 1.5em;}
+
+/* Primer Classes
+-------------------------------------------------------------- */
+.center		{ text-align:center;								}
+.baseline-24	{ background: url('../images/24px_baseline.png');	}
+.baseline-28	{ background: url('../images/28px_baseline.png');	}
+
+textarea.code	{
+	border: none;
+	overflow: auto; 
+	width:100%;
+	resize: none;
+	height:6em;
+	background: url('../images/24px_baseline.png');
+}
+
+input.code {
+	border-bottom: 1px solid black;
+}
+
+.result {
+}
+
+/* Debug 
+--------------------------------------------------------------- */
+body.debug 			{ background: url('../images/24px_baseline.png');	}
+.debug p 			{ background-color: #faa;							}
+.debug textarea 	{ background-color: #afa; 							}
+.debug input 		{ background-color: #ffa; 							}
+.debug h1           { background-color: #9bf;							}
+.debug h2           { background-color: #9bf;							}
+.debug h3           { background-color: #9bf;							}
+.debug h4  			{ background-color: #9bf;							}
+#debug-table { 
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+}
+
+#debug-table .pass { 
+	background-color: #9f9
+}
+
+#debug-table .fail { 
+	background-color: #f99;
+}
+
+/* Buttons
+--------------------------------------------------------------- */
+
+button.minimal {
+  background:white;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  padding: 6px 4px 2px 4px;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+button.minimal:hover {
+  border: 1px solid #ccc;  
+  padding: 5px 3px 1px 3px;
+}
+
+button.minimal:active {
+  border: 1px solid #ccc;  
+  padding: 5px 3px 1px 3px;
+  background:#9AFF98;
+}
+
+button.go {
+	float:right;
+}
+
+/* Introduction
+--------------------------------------------------------------- */
+#part-1 { display: none; }

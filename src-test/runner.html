@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>DOMTest Runner</title>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	<script type="text/javascript" src="dom_test.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../src/jquery.1.4.2.js" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function() {
+			function assertValidRhythm() {
+				Arrhythmia("body").validateRhythm() === true;
+			}
+		
+			function assertInvalidRhythm() {
+				Arrhythmia("body").validateRhythm() === false;
+			}
+		
+			DOMTest.addTest("/src-test/doms/fail_element_border.html",
+						 	assertInvalidValidRhythm);
+			
+			DOMTest.addTest("/src-test/doms/fail_element_height.html",
+						 	assertInvalidValidRhythm);
+			
+			DOMTest.addTest("/src-test/doms/fail_element_margin.html",
+						 	assertInvalidValidRhythm);
+			
+			DOMTest.addTest("/src-test/doms/fail_element_padding.html",
+			 				assertInvalidValidRhythm);
+			
+			DOMTest.addTest("/src-test/doms/pass.html",
+			 				assertValidRhythm);
+			
+			DOMTest.run();
+		});
+	</script>
+</head>
+<body>
+	<h1 class="center">DOM Test Runner</h1>
+	<ul id="test-list">
+	</ul>
+</body>
+</html>
