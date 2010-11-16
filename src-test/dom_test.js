@@ -1,58 +1,60 @@
 (function(){
 	function DOMTest(){
-		this.test_functions = {};
-		this.test_results = {};
-		this.test_queue = [];
+		this.testFunctions = {};
+		this.testResults = {};
+		this.testQueue = [];
+		this.client = null;
+		this.currentTest = null;
 	};
 	
 	DOMTest.prototype = {
-		client: function() {
-			if(window.opener && window.name == "DOMTest") {
-				try {
-					executeTest()
-				} catch(e) {
-					//Send back errorwindow.opener.DOMTest.callback(window, );
-					return;
-				}
-				window.opener.DOMTest.callback(window, );
-			}
-			return;     
+		run: function() {
+			this.runTest(this.testQueue.pop());
 		},
+		
 		addTest: function(path, fnc) {
-			this.test_functions[file] = fnc;
-			this.test_queue.push(file);
+			this.testFunctions[path] = fnc;
+			this.testQueue.push(path);
 		},
 		getTest: function(file) {
-			//If no test defined then we should look locally
-			return this.test_functions[file]
+			return this.testFunctions[file]
 		},
 		runTest: function(file) {
-			var client = window.open(file);
-			//inject support code?
+			this.currentTest = this.getTest(file);
+			this.client = window.open(file);
 		},
-		run: function() {
-			this.run_test(this.test_queue.pop());
-		}
-		callback: function(windowObj, success, msg) {
-			var path = windowObj.location.pathname;
+		
+		clientReady: function() {
+			this.client.DOMTestClient.execute(this.currentTest);
+		},
+		clientFinished: function(result) {
+			var path = this.client.location.pathname;
 			var file = path.substring(path.lastIndexOf("/")+1,path.length);
+			this.testResults[file] = result;
+			this.client.close();
 			
-			this.test_results[file] = success;
-			
-			windowObj.close();
-			if(this.test_queue.length) {
-				run_test(this.test_queue.pop());
+			if(this.testQueue.length) {
+				var test = this.testQueue.pop();
+				this.runTest(test);
 			} else {
-				tearDown();
-				finish();
+				this.finish();
 			}
 		},
-		tearDown: function() {
+		finish: function() {		
+			var testCount = 0,
+			successCount = 0,
+			failureCount = 0;
 			
-		},
-		finish: function() {
-			//Report results local
-			//Report results over AJAX
+			if(console.group) { console.group("Test Results"); }
+			
+			for(test in this.testResults) {				
+				if(this.testResults[test]===true) { successCount++; }
+				if(this.testResults[test]===false) { failureCount++; }
+				testCount++;
+				
+				console.log("%s: %s", test, this.testResults[test]);
+			}
+			console.log("%d tests ran, %d succeeded, %d failed.", testCount, successCount, failureCount);
 		}
 	}	
 	

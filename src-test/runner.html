@@ -10,28 +10,28 @@
 	<script type="text/javascript" src="../src/jquery.1.4.2.js" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(function() {
-			function assertValidRhythm() {
-				Arrhythmia("body").validateRhythm() === true;
+			function assertValidRhythym() {
+				return this.Arrhythmia("body").validateRhythm() === true;
 			}
 		
 			function assertInvalidRhythm() {
-				Arrhythmia("body").validateRhythm() === false;
+				return this.Arrhythmia("body").validateRhythm() === false;
 			}
-		
-			DOMTest.addTest("/src-test/doms/fail_element_border.html",
-						 	assertInvalidValidRhythm);
+		    
+			DOMTest.addTest("http://localhost:8000/src-test/doms/fail_element_border.html",
+						 	assertInvalidRhythm);
 			
-			DOMTest.addTest("/src-test/doms/fail_element_height.html",
-						 	assertInvalidValidRhythm);
+			DOMTest.addTest("http://localhost:8000/src-test/doms/fail_element_height.html",
+						 	assertInvalidRhythm);
 			
-			DOMTest.addTest("/src-test/doms/fail_element_margin.html",
-						 	assertInvalidValidRhythm);
+			DOMTest.addTest("http://localhost:8000/src-test/doms/fail_element_margin.html",
+						 	assertInvalidRhythm);
 			
-			DOMTest.addTest("/src-test/doms/fail_element_padding.html",
-			 				assertInvalidValidRhythm);
+			DOMTest.addTest("http://localhost:8000/src-test/doms/fail_element_padding.html",
+			 				assertInvalidRhythm);
 			
-			DOMTest.addTest("/src-test/doms/pass.html",
-			 				assertValidRhythm);
+			DOMTest.addTest("http://localhost:8000/src-test/doms/pass.html",
+			 				assertValidRhythym);
 			
 			DOMTest.run();
 		});

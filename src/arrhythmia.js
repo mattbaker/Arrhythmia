@@ -81,7 +81,7 @@
 						console.warn("Your margin and border total %dpx and may be at fault.", totalMargin);
 						return;
 					} else {
-						console.error("Arrhythmia may have encountered an error. Rhythm violation found but not identified.");
+						console.error("Arrhythmia may have encountered an error. A rhythm violation was found but its cause cannot be identified.");
 					}
 				} else {
 					console.warn("Your padding totals %dpx and may be at fault.", totalPadding);
@@ -94,10 +94,10 @@
 		}
 		
 	}	
-	
-	function init(jQuery_selector, jQuery_context) {
+
+	window.Arrhythmia = function(jQuery_selector, jQuery_context) {
 		var context = new jQuery.fn.init(jQuery_selector, jQuery_context);
 		return new Arrhythmia(context);
-	}
-	window.Arrhythmia = init;
+	};
+	
 })();
