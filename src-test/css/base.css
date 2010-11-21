@@ -1,0 +1,38 @@
+/* Additional reset
+-------------------------------------------------------------- */
+textarea, input, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+/* Base element styling
+-------------------------------------------------------------- */
+body		{ padding:3em;  }
+article		{ width: 40em;	}
+form    	{ line-height: 1.5em; margin: 0 0 1.5em; }
+textarea	{ display:block; line-height: 1.5em;}
+
+/* Custom Classes
+-------------------------------------------------------------- */
+.center		{ text-align:center;								}
+.baseline-24	{ background: url('../images/24px_baseline.png');	}
+.baseline-28	{ background: url('../images/28px_baseline.png');	}
+
+textarea.code	{
+	border: none;
+	overflow: auto; 
+	width:100%;
+	resize: none;
+	height:6em;
+	background: url('../images/24px_baseline.png');
+}
+
+input.code {
+	border-bottom: 1px solid black;
+}

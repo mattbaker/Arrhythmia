@@ -8,34 +8,40 @@
     <![endif]-->
 	<script type="text/javascript" src="dom_test.js" charset="utf-8"></script>
 	<script type="text/javascript" src="../src/jquery.1.4.2.js" charset="utf-8"></script>
-	<script type="text/javascript" charset="utf-8">
-		$(function() {
-			function assertValidRhythym() {
-				return this.Arrhythmia("body").validateRhythm() === true;
-			}
-		
-			function assertInvalidRhythm() {
-				return this.Arrhythmia("body").validateRhythm() === false;
-			}
-		    
-			DOMTest.addTest("http://localhost:8000/src-test/doms/fail_element_border.html",
-						 	assertInvalidRhythm);
-			
-			DOMTest.addTest("http://localhost:8000/src-test/doms/fail_element_height.html",
-						 	assertInvalidRhythm);
-			
-			DOMTest.addTest("http://localhost:8000/src-test/doms/fail_element_margin.html",
-						 	assertInvalidRhythm);
-			
-			DOMTest.addTest("http://localhost:8000/src-test/doms/fail_element_padding.html",
-			 				assertInvalidRhythm);
-			
-			DOMTest.addTest("http://localhost:8000/src-test/doms/pass.html",
-			 				assertValidRhythym);
-			
-			DOMTest.run();
-		});
-	</script>
+    <script type="text/javascript" src="tests.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            function postResults(results) {
+                var list = $("#test-list");
+                var html;
+                for(test in results) {
+                    html = ["<li>"]
+                    html.push(test);
+                    html.push(": ");
+                    if(results[test]) { 
+                        html.push("<span class='success'>Success</span>");
+                    } else { 
+                        html.push("<span class='failure'>Failusre</span>");
+                    }
+                    html.push("</li>");
+                    list.append(html.join(""));
+                }
+            }
+            DOMTest.run(postResults);
+        });
+    </script>
+    <style type="text/css" media="screen">
+        body {
+            font-family:Helvetica, Arial, sans-serif;
+        }
+        .success {
+            color:green;
+        }
+        
+        .failure {
+            color:red;
+        }
+    </style>
 </head>
 <body>
 	<h1 class="center">DOM Test Runner</h1>

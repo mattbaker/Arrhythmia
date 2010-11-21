@@ -37,11 +37,7 @@
 			if((relativeTop % this.lineHeight !== 0) || (relativeBottom % this.lineHeight !== 0)) {
 				var childBlocks = element.children(":block");
 				if(childBlocks.length === 0) {
-					console.warn("Arrhythmic element found: %o", element[0]);
-					this.examine(element);
-					console.warn("Arrhythmia DOM trace:");
-					element.css("background-color", "purple");
-					console.warn(" %o", element[0]);
+					this.report(element);
 					return false;
 				}
 				for(var i=0, len=childBlocks.length; i<len; i++) {
@@ -51,8 +47,20 @@
 						return false;
 					}
 				}
+				if(console.group) { console.group("Arrhythmia Report"); }
+				this.report(element);
+				return false;
 			}
 			return true;
+		},
+		
+		report: function(element) {
+			console.warn("Arrhythmic element found: %o", element[0]);
+			this.examine(element);
+			console.warn("DOM trace:");
+			element.css("background-color", "purple");
+			console.warn("  %o", element[0]);
+			return false;
 		},
 		
 		getLineHeight: function() {
@@ -65,34 +73,67 @@
 		},
 		
 		examine: function(element) {
-			var height = element.height();
-			var heightTotal= element.outerHeight(true);
-			var heightWithPadding = element.innerHeight();
-			var totalMargin = heightTotal - heightWithPadding;
-			var totalPadding = heightWithPadding - height;
-			var heightWithMargin = height + totalMargin;
-
-			if(height % this.lineHeight === 0) {
-				//Element height is OK
-				if(heightWithPadding % this.lineHeight === 0) {
-				//Element + padding is OK
-					if(heightWithMargin % this.lineHeight !== 0) {
-					//Element + margin is broken
-						console.warn("Your margin and border total %dpx and may be at fault.", totalMargin);
-						return;
-					} else {
-						console.error("Arrhythmia may have encountered an error. A rhythm violation was found but its cause cannot be identified.");
-					}
-				} else {
-					console.warn("Your padding totals %dpx and may be at fault.", totalPadding);
-					return;
+			var scores = [];
+			for(var i=0;i<4;scores[i++]=0);
+			
+			var ERROR_MARGIN=0,
+				ERROR_BORDER=1,
+				ERROR_PADDING=2,
+				ERROR_ELEMENT=3;
+				
+			var elementHeight = element.height(),
+				heightWithMargin = element.outerHeight(true),
+				heightWithBorder = element.outerHeight(),
+				heightWithPadding = element.innerHeight();
+			
+			var margin 	= heightWithMargin - heightWithBorder,
+				border 	= heightWithBorder - heightWithPadding,
+				padding = heightWithPadding - elementHeight;
+			
+			var validWithMargin	 = (heightWithMargin % this.lineHeight === 0),
+				validWithBorder	 = (heightWithBorder % this.lineHeight === 0),
+				validWithPadding = (heightWithPadding % this.lineHeight === 0),
+				validElement	 = (elementHeight % this.lineHeight === 0);
+			
+			if(!validWithMargin) { scores[ERROR_MARGIN]++;}
+			if(margin % this.lineHeight !=0) { scores[ERROR_MARGIN]++;}
+			
+			if(!validWithBorder) { scores[ERROR_BORDER]++ }
+			if(border % this.lineHeight !=0) { scores[ERROR_BORDER]++;}
+			
+			if(!validWithPadding) { scores[ERROR_PADDING]++ }
+			if(padding % this.lineHeight !=0) { scores[ERROR_PADDING]++;}
+			
+			if(!validElement) { scores[ERROR_ELEMENT]+=2 }
+			
+			var highest = 0;
+			var highestIndex = -1;
+			for(var i=0; i<4; i++) {
+				if(scores[i] > highest) {
+					highest = scores[i];
+					highestIndex = i;
 				}
-			} else {
-				console.warn("Your element height totals %dpx and may be at fault.", height);
-				return;
 			}
+			
+			switch(highestIndex) {
+				case ERROR_MARGIN:
+					console.warn("The element's margin is %dpx and may be at fault.", margin);
+				break;
+				case ERROR_BORDER:
+					console.warn("The element's border is %dpx and may be at fault.", border);
+				break;
+				case ERROR_PADDING:
+					console.warn("The element's padding is %dpx and may be at fault.", padding);
+				break;
+				case ERROR_ELEMENT:
+					console.warn("The element's height is %dpx and may be at fault.", elementHeight);
+				break;
+				default:
+					console.warn("No issues could be found with the element.");
+				break;
+			}
+			return;
 		}
-		
 	}	
 
 	window.Arrhythmia = function(jQuery_selector, jQuery_context) {

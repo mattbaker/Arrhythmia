@@ -5,10 +5,14 @@
 		this.testQueue = [];
 		this.client = null;
 		this.currentTest = null;
+		this.postHook = function(){};
 	};
 	
 	DOMTest.prototype = {
-		run: function() {
+		run: function(fnc) {
+			if(typeof fnc != "undefined") {
+				this.postHook = fnc;
+			}
 			this.runTest(this.testQueue.pop());
 		},
 		
@@ -55,6 +59,7 @@
 				console.log("%s: %s", test, this.testResults[test]);
 			}
 			console.log("%d tests ran, %d succeeded, %d failed.", testCount, successCount, failureCount);
+			this.postHook(this.testResults);
 		}
 	}	
 	
