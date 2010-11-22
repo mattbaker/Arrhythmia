@@ -115,23 +115,32 @@
 				}
 			}
 			
+			var component, value;
+			
 			switch(highestIndex) {
 				case ERROR_MARGIN:
-					console.warn("The element's margin is %dpx and may be at fault.", margin);
+					component = "margin";
+					value = margin;
 				break;
 				case ERROR_BORDER:
-					console.warn("The element's border is %dpx and may be at fault.", border);
+					component = "border";
+					value = border;
 				break;
 				case ERROR_PADDING:
-					console.warn("The element's padding is %dpx and may be at fault.", padding);
+					component = "padding";
+					value = padding;
 				break;
 				case ERROR_ELEMENT:
-					console.warn("The element's height is %dpx and may be at fault.", elementHeight);
+					component = "height";
+					value = elementHeight;
 				break;
 				default:
 					console.warn("No issues could be found with the element.");
+					return;
 				break;
 			}
+			
+			console.warn("The element's %s is %dpx and may be at fault.", component, value);
 			return;
 		}
 	}	
