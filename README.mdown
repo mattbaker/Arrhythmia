@@ -1,0 +1,35 @@
+#Arrhythmia.js, a new take on rhythm validation
+
+Arrhythmia.js is a tool for validating the vertical rhythm of your page. Its goal is to do away with the practice of visually checking your typography against a baseline grid by *programmatically* validating that the elements of your page fall within your vertical rhythm.
+
+_Arrhythmia_ iterates through the children of a supplied element ("body" by default) and verifies that their start and end y-positions are multiples of your line-height. If it finds an element out of rhythm it will examine all of that element's mis-aligned descendants in a depth-first search until it arrives at the deepest mis-aligned node, this is the "problem element" that has skewed the rest of the elements on the page.
+
+Finally _Arrhythmia_ will do some simple diagnostics to provide a guess as to whether it's your element height, padding, border or margin that seems to have put things out of alignment. When it's done it reports back via the Console with an explanation of what it thinks went wrong. It also highlights the problem element purple on your page and provides a "DOM trace" of all the parent elements it drilled through to find the arrhythmic element. 
+
+##Usage
+
+_Arrhythmia_ requires jQuery and takes a standard jQuery selector expression. It will validate the rhythm of all child elements within the selector you specify. At its most basic usage, Arrhythmia can take the "body" element and validate that every block element on the page is in rhythm. 
+
+`Arrhythmia("body").validateRhythm();`
+
+Note that you can supply `validateRhythm()` with your line-height, or let it guess by injecting a &lt;p&gt; tag into the DOM and measuring the element's height. You can also use this to assert that your line-height on the page matches what you expected.
+
+`Arrhythmia("body").assertLineHeight(18);`
+
+##Examples
+
+Check out any of the files in the `/src-test/doms` directory, and type `Arrhythmia("body").validateRhythm();` in the Javascript console of your browser.
+
+##Tests
+
+At the moment Arrhythmia uses a small home-made testing framework that loads up full HTML documents as test fixtures. To get around various XHR issues it requires a simple web server (just run ./serve in the root directory). `runner.html` will open all the sample HTML documents as pop-ups, run the test, and close them. In the future I hope some or all of the tests can move to something like JS Test Driver, but vertical rhythm can be hard to test with sand-boxed DOM snippets.
+
+##A few caveats
+
+ * Arrhythmia is a proof-of-concept, you can check out its handful of unit tests in src-test but there are *a lot* of edge cases out there in CSS land.
+ * Arrhythmia only operates on block elements, since only block elements have height.
+ * Arrhythmia expects elements it examines to be position: relative.
+ * IE's Console support is kind of lame and doesn't support the %o token, but validateRhythm() will still return a true or false value and give you diagnostic info.
+ 
+##Finding Rhythm
+If you're interested in establishing vertical rhythm in your design I suggest you check out Richard Rutter's [article](http://24ways.org/2006/compose-to-a-vertical-rhythm). Steve Losh also talks about establishing rhythm in [this post](http://stevelosh.com/blog/2010/09/making-my-site-sing/). You might also consider pulling the `reset.css` and `typography.css` files from the [Blueprint CSS Framework](http://www.blueprintcss.org/) as a starting point in establishing your vertical grid.
