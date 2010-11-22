@@ -1,3 +1,16 @@
-#!/usr/bin/env bash 
-#todo, check python version, following line won't work in py3.0
-python -m SimpleHTTPServer
+#!/usr/bin/env python
+import sys
+
+if sys.version_info[0] > 2:
+	import http.server as SimpleHTTPServer
+	import socketserver	as SocketServer
+else:
+	import SimpleHTTPServer
+	import SocketServer
+
+PORT = 8000
+
+Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+httpd = SocketServer.TCPServer(("", PORT), Handler)
+print "Serving at port ", PORT
+httpd.serve_forever()
