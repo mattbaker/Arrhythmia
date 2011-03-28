@@ -73,9 +73,7 @@
 		},
 		
 		examine: function(element) {
-			var scores = [];
-			for(var i=0;i<4;scores[i++]=0);
-			
+			var scores = [0,0,0,0];
 			var ERROR_MARGIN=0,
 				ERROR_BORDER=1,
 				ERROR_PADDING=2,
